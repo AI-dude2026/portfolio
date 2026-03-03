@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-dude | Portfolio</title>
+    <link rel="icon" type="image/png"
+        href="https://cdn.discordapp.com/avatars/1209031711242059847/034a9f0a94fb511f9667b2742ceb938b.webp?size=512">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+
+<body>
+    <div class="cursor-glow"></div>
+    <canvas id="bg-canvas"></canvas>
+
+    <nav>
+        <div class="logo">AI-dude</div>
+        <div class="nav-links">
+            <a href="#projects">Projects</a>
+            <a href="https://github.com/AI-dude2026" target="_blank">GitHub</a>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <div class="pfp-container">
+                <img src="https://cdn.discordapp.com/avatars/1209031711242059847/034a9f0a94fb511f9667b2742ceb938b.webp?size=512"
+                    alt="AI-dude">
+            </div>
+            <h1>Making random things,<br>one function at a time.</h1>
+            <p>I make and develop Agentic AI, CLI tools, and other stuff like libraries of CursorScript</p>
+
+            <div class="terminal-container">
+                <div class="terminal-header">
+                    <div class="terminal-buttons">
+                        <span class="close"></span>
+                        <span class="minimize"></span>
+                        <span class="maximize"></span>
+                    </div>
+                    <div class="terminal-title">guest@AI-dude: ~</div>
+                </div>
+                <div class="terminal-body" id="terminal-body" onclick="document.getElementById('cmd-input').focus()">
+                    <div id="terminal-output">
+                        <div class="terminal-line" style="color: #98c379;">Welcome to AI-dude Terminal. Type 'help' to
+                            see available commands.</div>
+                    </div>
+                    <div class="terminal-input-line">
+                        <span class="prompt">guest@AI-dude:~$</span>
+                        <input type="text" id="cmd-input" autocomplete="off" spellcheck="false" autofocus>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2 class="section-title">My Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-icon">
+                        <img src="https://cdn.discordapp.com/avatars/1364319112679002152/b6d8ccd9e18e03daffa6e4cf1ad0eddd.webp?size=512"
+                            alt="Jarvis">
+                    </div>
+                    <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
+                        <h3>Jarvis</h3>
+                        <span class="status-badge status-online">Online</span>
+                    </div>
+                    <p>Just an ordinary AI discord bot capable of playing music, generating iamges, making custom
+                        scripts & much more!.</p>
+                    <div class="project-links">
+                        <a href="https://jarvis.is-live.xyz" class="project-link" target="_blank"><i
+                                data-lucide="external-link"></i> Visit Website</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i data-lucide="terminal" style="color: var(--primary-color);"></i>
+                    </div>
+                    <h3>Jarvis CLI</h3>
+                    <div class="video-preview">
+                        <video controls>
+                            <source
+                                src="https://raw.githubusercontent.com/AI-dude2026/portfolio/refs/heads/main/jarvis-cli-test.mp4"
+                                type="video/mp4">
+                        </video>
+                    </div>
+                    <p>A command-line interface that's used to edit, write, and runs scripts</p>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i data-lucide="package" style="color: var(--purple-glow);"></i>
+                    </div>
+                    <h3>CursorScript Libs</h3>
+                    <p>Made some libraries for CursorScript like Databases, Server, and planning to add more.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/AI-dude2026/CursorScript/tree/main/docs" class="project-link"
+                            target="_blank"><i data-lucide="github"></i> View Libs</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">
+                        <img src="https://cdn.discordapp.com/avatars/1381216431965732865/7e409e6513647b2ab990413bbb38bfc7.webp?size=512"
+                            alt="Harmony">
+                    </div>
+                    <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
+                        <h3>H.A.R.M.O.N.Y</h3>
+                        <span class="status-badge status-offline">Offline</span>
+                    </div>
+                    <p>AI discord music bot with TONS of features, the bot is offline and im not planning on working on
+                        it, BUT you can ask for the source code</p>
+                    <div class="project-links">
+                        <a href="https://discord.com/users/1209031711242059847" class="project-link" target="_blank"><i
+                                data-lucide="message-square"></i> DM ai_dude_3249</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="logo">AI-dude</div>
+        <div class="socials">
+            <a href="https://github.com/AI-dude2026" class="social-link" target="_blank"><i
+                    data-lucide="github"></i></a>
+            <a href="https://discord.com/users/1209031711242059847" class="social-link" target="_blank"><i
+                    data-lucide="message-circle"></i></a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
