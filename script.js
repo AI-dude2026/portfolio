@@ -327,7 +327,7 @@ animateCounters();
 
 async function fetchGitHubContributions() {
     const username = 'AI-dude2026';
-    const token = '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';
+    const token = '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';
     const today = new Date();
     const oneYearAgo = new Date(today);
     oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
@@ -416,7 +416,7 @@ function renderGraphQLContributionGraph(calendar) {
     });
 
     if (totalEl) {
-        totalEl.textContent = `${calendar.totalContributions} contributions in the last year`; 
+        totalEl.textContent = `${calendar.totalContributions} contributions in the last year`;
     }
 }
 
