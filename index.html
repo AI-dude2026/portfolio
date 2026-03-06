@@ -11,28 +11,54 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
 </head>
 
 <body>
+    <div class="noise-overlay"></div>
     <div class="cursor-glow"></div>
+    <div class="cursor-trail"></div>
     <canvas id="bg-canvas"></canvas>
+    <div class="floating-code" id="floating-code"></div>
 
     <nav>
-        <div class="logo">AI-dude</div>
+        <div class="logo" data-text="AI-dude">AI-dude</div>
         <div class="nav-links">
-            <a href="#projects">Projects</a>
-            <a href="https://github.com/AI-dude2026" target="_blank">GitHub</a>
+            <a href="#projects" class="magnetic">Projects</a>
+            <a href="#about" class="magnetic">About</a>
+            <a href="https://github.com/AI-dude2026" target="_blank" class="magnetic">GitHub</a>
         </div>
     </nav>
 
     <main>
-        <section class="hero">
+        <section class="hero" id="home">
+            <div class="hero-bg-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+            </div>
+
             <div class="pfp-container">
+                <div class="pfp-ring"></div>
+                <div class="pfp-ring ring-2"></div>
+                <div class="pfp-ring ring-3"></div>
                 <img src="https://cdn.discordapp.com/avatars/1209031711242059847/034a9f0a94fb511f9667b2742ceb938b.webp?size=512"
                     alt="AI-dude">
             </div>
-            <h1>Making random things,<br>one function at a time.</h1>
-            <p>I make and develop Agentic AI, CLI tools, and other stuff like libraries of CursorScript</p>
+
+            <div class="hero-content">
+                <div class="glitch-wrapper">
+                    <h1 class="glitch-text" data-text="Making random things,">Making random things,</h1>
+                    <h1 class="glitch-text" data-text="one function at a time." style="animation-delay: 0.5s;">one
+                        function at a time.</h1>
+                </div>
+                <p class="typing-text" id="typing-text"></p>
+                <div class="hero-tags">
+                    <span class="tag">it works on my machine 🤷</span>
+                    <span class="tag">no bugs just features</span>
+                    <span class="tag">vibes based coding</span>
+                </div>
+            </div>
 
             <div class="terminal-container">
                 <div class="terminal-header">
@@ -56,66 +82,205 @@
             </div>
         </section>
 
+        <section class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" data-target="4">0</div>
+                    <div class="stat-label">Things I Started</div>
+                    <div class="stat-glow"></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-target="15">0</div>
+                    <div class="stat-label">Technologies I've Blamed</div>
+                    <div class="stat-glow"></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-target="100">0</div>
+                    <div class="stat-label">"Final" Commits</div>
+                    <div class="stat-glow"></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">∞</div>
+                    <div class="stat-label">3am Ideas</div>
+                    <div class="stat-glow"></div>
+                </div>
+            </div>
+        </section>
+
         <section id="projects">
-            <h2 class="section-title">My Projects</h2>
+            <h2 class="section-title">
+                <span class="title-decoration">&lt;</span>
+                My Projects
+                <span class="title-decoration">/&gt;</span>
+            </h2>
             <div class="projects-grid">
-                <div class="project-card">
+                <div class="project-card" data-tilt>
+                    <div class="card-glow"></div>
                     <div class="project-icon">
                         <img src="https://cdn.discordapp.com/avatars/1364319112679002152/b6d8ccd9e18e03daffa6e4cf1ad0eddd.webp?size=512"
                             alt="Jarvis">
                     </div>
-                    <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
+                    <div class="project-header">
                         <h3>Jarvis</h3>
                         <span class="status-badge status-online">Online</span>
                     </div>
-                    <p>Just an ordinary AI discord bot capable of playing music, generating iamges, making custom
-                        scripts & much more!.</p>
+                    <p>Your friendly neighborhood AI bot. Does music, images, scripts — basically a Swiss Army knife but
+                        digital. Works 60% of the time, every time.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Discord.js</span>
+                        <span class="project-tag">AI</span>
+                        <span class="project-tag">Music</span>
+                    </div>
                     <div class="project-links">
-                        <a href="https://jarvis.is-live.xyz" class="project-link" target="_blank"><i
+                        <a href="https://jarvis.is-live.xyz" class="project-link magnetic" target="blank"><i
                                 data-lucide="external-link"></i> Visit Website</a>
                     </div>
                 </div>
 
-                <div class="project-card">
+                <div class="project-card" data-tilt>
+                    <div class="card-glow"></div>
                     <div class="project-icon">
                         <svg viewBox="0 0 127.14 96.36" style="width: 35px; height: 35px; fill: #5865F2;">
                             <path
                                 d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z" />
                         </svg>
                     </div>
-                    <h3>Discord Bot Creator</h3>
-                    <p>I make cool discord bots that do alot of stuff, so if ya want your own bot, js DM me :)</p>
+                    <div class="project-header">
+                        <h3>Discord Bot Creator</h3>
+                        <span class="status-badge status-dev">In Dev</span>
+                    </div>
+                    <p>Need a bot? I got you. Custom Discord bots on demand. Slide into my DMs and let's make something
+                        that probably shouldn't exist.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Discord.js</span>
+                        <span class="project-tag">Automation</span>
+                    </div>
                     <div class="project-links">
-                        <a href="#" class="project-link"><i data-lucide="external-link"></i> Coming Soon</a>
+                        <a href="#" class="project-link magnetic"><i data-lucide="external-link"></i> Coming Soon</a>
                     </div>
                 </div>
 
-                <div class="project-card">
+                <div class="project-card" data-tilt>
+                    <div class="card-glow"></div>
                     <div class="project-icon">
                         <i data-lucide="package" style="color: var(--purple-glow);"></i>
                     </div>
-                    <h3>CursorScript Libs</h3>
-                    <p>Made some libraries for CursorScript like Databases, Server, and planning to add more.</p>
+                    <div class="project-header">
+                        <h3>CursorScript Libs</h3>
+                        <span class="status-badge status-online">Active</span>
+                    </div>
+                    <p>Libraries for CursorScript because why not. Databases, servers, and other stuff I built at 2am.
+                        It's open source, so if it breaks, you can fix it yourself 😤</p>
+                    <div class="project-tags">
+                        <span class="project-tag">CursorScript</span>
+                        <span class="project-tag">Libraries</span>
+                    </div>
                     <div class="project-links">
-                        <a href="https://github.com/AI-dude2026/CursorScript/tree/main/docs" class="project-link"
-                            target="_blank"><i data-lucide="github"></i> View Libs</a>
+                        <a href="https://github.com/AI-dude2026/CursorScript/tree/main/docs"
+                            class="project-link magnetic" target="_blank"><i data-lucide="github"></i> View Libs</a>
                     </div>
                 </div>
 
-                <div class="project-card">
+                <div class="project-card" data-tilt>
+                    <div class="card-glow"></div>
                     <div class="project-icon">
                         <img src="https://cdn.discordapp.com/avatars/1381216431965732865/7e409e6513647b2ab990413bbb38bfc7.webp?size=512"
                             alt="Harmony">
                     </div>
-                    <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
+                    <div class="project-header">
                         <h3>H.A.R.M.O.N.Y</h3>
-                        <span class="status-badge status-offline">Offline</span>
+                        <span class="status-badge status-offline">Archived</span>
                     </div>
-                    <p>AI discord music bot with TONS of features, the bot is offline and im not planning on working on
-                        it, BUT you can ask for the source code</p>
+                    <p>RIP to a real one 😭. Music bot with more features than your Spotify. It's offline now but the
+                        source code lives on. DM me if you want the goods.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Discord.js</span>
+                        <span class="project-tag">Music</span>
+                        <span class="project-tag">AI</span>
+                    </div>
                     <div class="project-links">
-                        <a href="https://discord.com/users/1209031711242059847" class="project-link" target="_blank"><i
-                                data-lucide="message-square"></i> DM ai_dude_3249</a>
+                        <a href="https://discord.com/users/1209031711242059847" class="project-link magnetic"
+                            target="_blank"><i data-lucide="message-square"></i> DM ai_dude_3249</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contributions-section">
+            <h2 class="section-title fade-in">
+                <span class="title-decoration">&lt;</span>
+                My Contributions
+                <span class="title-decoration">/&gt;</span>
+            </h2>
+            <div class="contribution-graph">
+                <div class="graph-header">
+                    <span class="graph-total" id="total-contributions">Loading...</span>
+                </div>
+                <div class="graph-container" id="contribution-graph"></div>
+                <div class="graph-legend">
+                    <span>Less</span>
+                    <div class="legend-boxes">
+                        <div class="legend-box" data-level="0"></div>
+                        <div class="legend-box" data-level="1"></div>
+                        <div class="legend-box" data-level="2"></div>
+                        <div class="legend-box" data-level="3"></div>
+                        <div class="legend-box" data-level="4"></div>
+                    </div>
+                    <span>More</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about-section">
+            <h2 class="section-title">
+                <span class="title-decoration">&lt;</span>
+                About Me
+                <span class="title-decoration">/&gt;</span>
+            </h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Hey! I'm <span class="highlight">AI-dude</span> — I write code that sometimes works. Professional
+                        Stack Overflow copy-paster, certified "it works on my machine" advocate.</p>
+                    <p>I build <span class="highlight">AI stuff</span> that does things so you don't have to. Discord
+                        bots, CLI tools, random scripts at 3am — you know the vibe. If it compiles without errors, it's
+                        basically done.</p>
+                    <p>Current status: debugging code that worked 5 minutes ago 🔧</p>
+                </div>
+                <div class="skills-container">
+                    <h3>Tech Stack</h3>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <i data-lucide="code-2"></i>
+                            <span>JavaScript</span>
+                        </div>
+                        <div class="skill-item">
+                            <i data-lucide="file-type"></i>
+                            <span>TypeScript</span>
+                        </div>
+                        <div class="skill-item">
+                            <i data-lucide="brain"></i>
+                            <span>AI/ML</span>
+                        </div>
+                        <div class="skill-item">
+                            <i data-lucide="terminal"></i>
+                            <span>CLI Tools</span>
+                        </div>
+                        <div class="skill-item">
+                            <i data-lucide="bot"></i>
+                            <span>Discord.js</span>
+                        </div>
+                        <div class="skill-item">
+                            <i data-lucide="database"></i>
+                            <span>Databases</span>
+                        </div>
+                        <div class="skill-item">
+                            <i data-lucide="git-branch"></i>
+                            <span>Git</span>
+                        </div>
+                        <div class="skill-item">
+                            <i data-lucide="package"></i>
+                            <span>CursorScript</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -123,12 +288,18 @@
     </main>
 
     <footer>
-        <div class="logo">AI-dude</div>
-        <div class="socials">
-            <a href="https://github.com/AI-dude2026" class="social-link" target="_blank"><i
-                    data-lucide="github"></i></a>
-            <a href="https://discord.com/users/1209031711242059847" class="social-link" target="_blank"><i
-                    data-lucide="message-circle"></i></a>
+        <div class="footer-content">
+            <div class="logo" data-text="AI-dude">AI-dude</div>
+            <p class="footer-text">made with 💀 and questionable code choices</p>
+            <div class="socials">
+                <a href="https://github.com/AI-dude2026" class="social-link magnetic" target="_blank"><i
+                        data-lucide="github"></i></a>
+                <a href="https://discord.com/users/1209031711242059847" class="social-link magnetic" target="_blank"><i
+                        data-lucide="message-circle"></i></a>
+            </div>
+        </div>
+        <div class="footer-decoration">
+            <div class="line"></div>
         </div>
     </footer>
 
