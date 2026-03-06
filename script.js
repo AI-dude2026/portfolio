@@ -327,7 +327,7 @@ animateCounters();
 
 async function fetchGitHubContributions() {
     const username = 'AI-dude2026';
-    const token = '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';
+    const token = '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';
     const today = new Date();
     const oneYearAgo = new Date(today);
     oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
