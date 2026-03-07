@@ -274,7 +274,6 @@ section {
     min-height: 100vh;
     padding-top: 80px;
     position: relative;
-    overflow: hidden;
 }
 
 .hero-bg-shapes {
