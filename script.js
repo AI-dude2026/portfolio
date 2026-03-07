@@ -341,8 +341,6 @@ gsap.from(".glitch-text", {
     ease: "power4.out"
 });
 
-
-
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -426,6 +424,30 @@ if (cmdInput) {
 if ('ontouchstart' in window) {
     if (cursorGlow) cursorGlow.style.display = 'none';
     if (cursorTrail) cursorTrail.style.display = 'none';
+}
+
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.querySelector('.nav-links');
+
+if (hamburger && navLinks) {
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navLinks.classList.toggle('active');
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
+        });
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
+        }
+    });
 }
 
 setTimeout(() => {
