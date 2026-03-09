@@ -3,31 +3,100 @@ lucide.createIcons();
 gsap.registerPlugin(ScrollTrigger);
 
 const codeSnippets = [
+    // JavaScript/TypeScript
     'const app = createAI();',
     'async function build() {',
     'import { Agent } from "jarvis";',
-    'git commit -m "ship it"',
     'for (let i = 0; i < n; i++) {',
     'export default class Bot {',
-    'cursorx run script.cursor',
-    'npm install --save ai',
     'if (coding) coffee++;',
     'while (true) { learn(); }',
     'const jarvis = new AI();',
     'async function think() {',
     'return <Component />;',
-    'SELECT * FROM ideas;',
-    'docker compose up -d',
-    'this.velocity += gravity;',
-    'scene.add(mesh);',
-    'socket.on("message", handle);',
     'export const skills = [];',
     'function createMagic() {',
     'await asyncOperation();',
-    'class NeuralNetwork {',
-    'train(model, data);',
     'const result = await bot.think();',
-    'import { Terminal } from "cli";'
+    'import { Terminal } from "cli";',
+    'const [state, setState] = useState();',
+    'useEffect(() => { fetchData(); });',
+    'const router = useRouter();',
+    'export async function GET() {',
+    'interface User { name: string; }',
+    'type Response = { data: any };',
+    'const { data, error } = await supabase',
+    'app.use(express.json());',
+    'router.get("/api/users", handler);',
+    'const payload = jwt.verify(token);',
+    'bcrypt.hash(password, 10);',
+    'const ws = new WebSocket(url);',
+    'localStorage.setItem("key", val);',
+    'document.querySelector(".app");',
+    'addEventListener("load", init);',
+    'git commit -m "ship it"',
+    'git push origin main',
+    'git merge --no-ff feature',
+    'git rebase -i HEAD~3',
+    'npm install --save ai',
+    'cursorx run script.cursor',
+    'yarn add discord.js',
+    'pnpm install && pnpm dev',
+    'npx prisma migrate dev',
+    'docker compose up -d',
+    'kubectl apply -f deploy.yaml',
+    'terraform apply --auto-approve',
+    'import tensorflow as tf',
+    'from fastapi import FastAPI',
+    'def train_model(data):',
+    'class NeuralNetwork:',
+    'import torch.nn as nn',
+    'app = Flask(__name__)',
+    'asyncio.run(main())',
+    'print("Hello, World!")',
+    'df = pd.read_csv("data.csv")',
+    'model.fit(X_train, y_train)',
+    'np.array([1, 2, 3])',
+    'lambda x: x * 2',
+    'fn main() { println!(); }',
+    'let mut x = Vec::new();',
+    'impl Handler for Server { }',
+    'go func() { doWork() }()',
+    'package main',
+    'func main() { http.ListenAndServe() }',
+    'printf("Hello World\\n");',
+    'int main(int argc, char *argv[])',
+    'malloc(sizeof(Node));',
+    'SELECT * FROM ideas;',
+    'INSERT INTO users VALUES (1, "AI");',
+    'CREATE TABLE projects (id INT);',
+    'DROP DATABASE production; -- oops',
+    'MONGODB_URI=mongodb://localhost',
+    'redis.connect("localhost:6379");',
+    'this.velocity += gravity;',
+    'scene.add(mesh);',
+    'ctx.drawImage(sprite, x, y);',
+    'rigidbody.AddForce(dir);',
+    'transform.position = newPos;',
+    'Vector3.up * jumpForce',
+    'player.GetComponent<Animator>();',
+    'glBindTexture(GL_TEXTURE_2D, id);',
+    'shader.setUniform("time", t);',
+    '// TODO: fix this later',
+    '// It works, don\'t touch it',
+    'console.log("debug");',
+    'debugger;',
+    'catch (e) { /* ignore */ }',
+    'if (bug) { console.log("feature"); }',
+    'while (!success) { tryAgain(); }',
+    '404: Sleep not found',
+    'rm -rf /node_modules',
+    'git push --force origin main',
+    'sudo rm -rf / (just kidding)',
+    'itWorksOnMyMachine = true;',
+    'deployToProduction(); // yolo',
+    'socket.on("message", handle);',
+    'train(model, data);'
 ];
 
 function createFloatingCode() {
@@ -357,66 +426,347 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 const cmdInput = document.getElementById('cmd-input');
 const terminalOutput = document.getElementById('terminal-output');
 const terminalBody = document.getElementById('terminal-body');
+const terminalTitle = document.querySelector('.terminal-title');
+const promptSpans = document.querySelectorAll('.prompt');
 
-const commands = {
-    help: `<span style='color: #61afef;'>Available commands:</span>
-  <span style='color: #c678dd;'>help</span>     - Show this message
-  <span style='color: #c678dd;'>about</span>    - Learn more about me
-  <span style='color: #c678dd;'>skills</span>   - View my tech stack
-  <span style='color: #c678dd;'>projects</span> - View my projects
-  <span style='color: #c678dd;'>social</span>   - Get social links
-  <span style='color: #c678dd;'>clear</span>    - Clear terminal`,
+// Terminal State
+let isRoot = false;
+let currentDir = '~';
+let commandHistory = [];
+let historyIndex = -1;
 
-    about: `<span style='color: #98c379;'>┌──────────────────────────────────┐</span>
-<span style='color: #98c379;'>│</span>  I'm AI-dude, a developer who  <span style='color: #98c379;'>│</span>
-<span style='color: #98c379;'>│</span>  loves building random things!  <span style='color: #98c379;'>│</span>
-<span style='color: #98c379;'>│</span>  AI bots, CLI tools, libraries  <span style='color: #98c379;'>│</span>
-<span style='color: #98c379;'>└──────────────────────────────────┘</span>`,
-
-    skills: `<span style='color: #e5c07b;'>Languages:</span>  JavaScript, TypeScript, Python
-<span style='color: #e5c07b;'>Specialties:</span> AI/ML, Bot Development, CLI Tools
-<span style='color: #e5c07b;'>Frameworks:</span> Discord.js, Node.js, CursorScript`,
-
-    projects: `<span style='color: #c678dd;'>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
-<span style='color: #61afef;'>🤖 Jarvis</span>      - AI Discord Bot (Online)
-<span style='color: #61afef;'>🎮 Bot Creator</span> - Custom Discord Bots
-<span style='color: #61afef;'>📦 CS Libs</span>     - CursorScript Libraries
-<span style='color: #61afef;'>🎵 HARMONY</span>     - Music Bot (Archived)
-<span style='color: #c678dd;'>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>`,
-
-    social: `<span style='color: #98c379;'>GitHub:</span>   https://github.com/AI-dude2026
-<span style='color: #98c379;'>Discord:</span>  ai_dude_3249`,
-
-    clear: ''
+// Simulated File System
+const fileSystem = {
+    '~': {
+        type: 'dir',
+        contents: ['projects', 'skills.txt', 'about.txt', 'contact.txt', 'secret']
+    },
+    '~/projects': {
+        type: 'dir',
+        contents: ['jarvis.txt', 'harmony.txt', 'cursorlibs.txt', 'botcreator.txt']
+    },
+    '~/secret': {
+        type: 'dir',
+        contents: ['.flag', 'easter_egg.txt']
+    },
+    '~/skills.txt': {
+        type: 'file',
+        content: 'Languages: JavaScript, TypeScript, Python, CursorScript\nFrameworks: Discord.js, Node.js, React\nSpecialties: AI/ML, Bot Development, CLI Tools\nDatabases: MongoDB, PostgreSQL, Redis'
+    },
+    '~/about.txt': {
+        type: 'file',
+        content: 'Hey! I\'m AI-dude - a developer who loves building random things.\nI make AI bots, CLI tools, and libraries at 3am.\nProfessional Stack Overflow copy-paster.\nCertified "it works on my machine" advocate.'
+    },
+    '~/contact.txt': {
+        type: 'file',
+        content: 'GitHub: https://github.com/AI-dude2026\nDiscord: ai_dude_3249\nEmail: not-gonna-share@nice.try'
+    },
+    '~/projects/jarvis.txt': {
+        type: 'file',
+        content: '═══════════════════════════════════\n         JARVIS - AI Discord Bot\n═══════════════════════════════════\nStatus: Online 24/7\nFeatures: Music, AI Chat, Image Gen\nWebsite: https://jarvis.is-live.xyz\n"Works 60% of the time, every time"'
+    },
+    '~/projects/harmony.txt': {
+        type: 'file',
+        content: '═══════════════════════════════════\n      H.A.R.M.O.N.Y - Music Bot\n═══════════════════════════════════\nStatus: Archived (RIP 😭)\nFeatures: High-quality music, playlists\nNote: Source available on request'
+    },
+    '~/projects/cursorlibs.txt': {
+        type: 'file',
+        content: '═══════════════════════════════════\n      CursorScript Libraries\n═══════════════════════════════════\nStatus: Active Development\nRepo: github.com/AI-dude2026/CursorScript\n"If it breaks, you can fix it yourself 😤"'
+    },
+    '~/projects/botcreator.txt': {
+        type: 'file',
+        content: '═══════════════════════════════════\n      Discord Bot Creator\n═══════════════════════════════════\nStatus: In Development\nDesc: Custom Discord bots on demand\nComing Soon™'
+    },
+    '~/secret/.flag': {
+        type: 'file',
+        content: '🎯 You found the secret directory!\nBut can you find the real easter egg?\nHint: try becoming root...'
+    },
+    '~/secret/easter_egg.txt': {
+        type: 'file',
+        content: '🥚🥚🥚 CONGRATULATIONS 🥚🥚🥚\nYou found the easter egg!\nBut wait... there\'s more secrets hidden.\nTry: su -i'
+    }
 };
+
+// Command Definitions
+const commands = {
+    help: () => `<span style='color: #61afef;'>Available commands:</span>
+  <span style='color: #c678dd;'>help</span>      - Show this message
+  <span style='color: #c678dd;'>ls</span>        - List directory contents
+  <span style='color: #c678dd;'>cd</span>        - Change directory
+  <span style='color: #c678dd;'>pwd</span>       - Print working directory
+  <span style='color: #c678dd;'>cat</span>       - Read file contents
+  <span style='color: #c678dd;'>echo</span>      - Print text
+  <span style='color: #c678dd;'>whoami</span>    - Display current user
+  <span style='color: #c678dd;'>date</span>      - Show current date/time
+  <span style='color: #c678dd;'>uname</span>     - System information
+  <span style='color: #c678dd;'>clear</span>     - Clear terminal
+  <span style='color: #c678dd;'>history</span>   - Command history
+  <span style='color: #c678dd;'>neofetch</span>  - System info (fancy)
+  <span style='color: #c678dd;'>matrix</span>    - Enter the matrix
+  <span style='color: #c678dd;'>hack</span>      - ???`,
+
+    ls: (args) => {
+        let dir = currentDir;
+        if (args && args !== '-la' && args !== '-a' && args !== '-l') {
+            dir = resolvePath(args);
+        }
+        const showHidden = args === '-la' || args === '-a';
+        const folder = fileSystem[dir];
+        if (!folder || folder.type !== 'dir') {
+            return `<span style='color: #e06c75;'>ls: cannot access '${args || dir}': No such file or directory</span>`;
+        }
+        let items = folder.contents.map(item => {
+            const isHidden = item.startsWith('.');
+            if (isHidden && !showHidden) return null;
+            const fullPath = dir === '/' ? `/${item}` : `${dir}/${item}`;
+            const isDir = fileSystem[fullPath]?.type === 'dir';
+            const color = isDir ? '#61afef' : (isHidden ? '#5c6370' : '#98c379');
+            return `<span style='color: ${color};'>${item}${isDir ? '/' : ''}</span>`;
+        }).filter(Boolean);
+        return items.join('  ') || '<span style="color: #5c6370;">(empty)</span>';
+    },
+
+    cd: (args) => {
+        if (!args || args === '~') {
+            currentDir = '~';
+            updatePrompt();
+            return '';
+        }
+        // Handle ../ with optional trailing slash and multiple levels
+        if (args.match(/^(\.\.\/)+$/)) {
+            const levels = args.split('/').filter(p => p === '..').length;
+            let newDir = currentDir;
+            for (let i = 0; i < levels; i++) {
+                if (newDir === '~') {
+                    return `<span style='color: #e06c75;'>cd: already at root</span>`;
+                }
+                const parts = newDir.split('/');
+                parts.pop();
+                newDir = parts.join('/') || '~';
+            }
+            currentDir = newDir;
+            updatePrompt();
+            return '';
+        }
+        // Handle single ..
+        if (args === '..') {
+            if (currentDir === '~') return `<span style='color: #e06c75;'>cd: already at root</span>`;
+            const parts = currentDir.split('/');
+            parts.pop();
+            currentDir = parts.join('/') || '~';
+            updatePrompt();
+            return '';
+        }
+        const newPath = resolvePath(args);
+        if (!fileSystem[newPath]) {
+            return `<span style='color: #e06c75;'>cd: ${args}: No such file or directory</span>`;
+        }
+        if (fileSystem[newPath].type !== 'dir') {
+            return `<span style='color: #e06c75;'>cd: ${args}: Not a directory</span>`;
+        }
+        currentDir = newPath;
+        updatePrompt();
+        return '';
+    },
+
+    pwd: () => currentDir.replace('~', '/home/guest'),
+
+    cat: (args) => {
+        if (!args) return `<span style='color: #e06c75;'>cat: missing file operand</span>`;
+        const path = resolvePath(args);
+        const file = fileSystem[path];
+        if (!file) return `<span style='color: #e06c75;'>cat: ${args}: No such file or directory</span>`;
+        if (file.type !== 'file') return `<span style='color: #e06c75;'>cat: ${args}: Is a directory</span>`;
+        return file.content;
+    },
+
+    echo: (args) => args ? args : '',
+
+    whoami: () => isRoot ? 'root' : 'guest',
+
+    date: () => new Date().toString(),
+
+    uname: (args) => {
+        if (args === '-a') {
+            return 'AI-dudeOS 1.0.0 Portfolio x86_64 GNU/Linux (totally real)';
+        }
+        return 'AI-dudeOS';
+    },
+
+    clear: () => 'CLEAR',
+
+    history: () => commandHistory.map((cmd, i) => `  ${i + 1}  ${cmd}`).join('\n') || '<span style="color: #5c6370;">No commands in history</span>',
+
+    neofetch: () => `<span style='color: #61afef;'>        .--.        </span>  <span style='color: #c678dd;'>${isRoot ? 'root' : 'guest'}</span>@<span style='color: #98c379;'>AI-dude</span>
+<span style='color: #61afef;'>       |o_o |       </span>  ─────────────
+<span style='color: #61afef;'>       |:_/ |       </span>  <span style='color: #c678dd;'>OS:</span> AI-dudeOS 1.0
+<span style='color: #61afef;'>      //   \ \      </span>  <span style='color: #c678dd;'>Host:</span> Portfolio Website
+<span style='color: #61afef;'>     (|     | )     </span>  <span style='color: #c678dd;'>Kernel:</span> JavaScript ES6
+<span style='color: #61afef;'>'|\_   _/|\`     </span>  <span style='color: #c678dd;'>Uptime:</span> Since you loaded the page
+<span style='color: #61afef;'>   \_\_)(_/_/      </span>  <span style='color: #c678dd;'>Shell:</span> WebTerm 1.0
+                       <span style='color: #c678dd;'>Terminal:</span> AI-dude Term
+                       <span style='color: #c678dd;'>CPU:</span> Your browser's patience
+                       <span style='color: #c678dd;'>Memory:</span> ∞ MB
+
+<span style='color: #e5c07b;'>You found the neofetch! Nice.</span>`,
+
+    matrix: () => {
+        document.body.style.animation = 'matrixFlash 0.5s';
+        setTimeout(() => document.body.style.animation = '', 500);
+        return `<span style='color: #00ff00;'>Wake up, Neo...
+The Matrix has you...
+Follow the white rabbit.
+
+🐇</span>
+<span style='color: #5c6370;'>(refresh to escape)</span>`;
+    },
+
+    hack: () => {
+        const hacks = [
+            'Accessing mainframe...',
+            'Bypassing firewall...',
+            'Decrypting data...',
+            'Uploading virus.exe...',
+            'JUST KIDDING 😂',
+            'This is just a portfolio site!',
+            'But nice try, hacker!'
+        ];
+        return hacks.join('\n');
+    },
+
+    // EASTER EGG - su command (not in help!)
+    su: (args) => {
+        if (args === '-i' || args === '-' || args === '') {
+            if (isRoot) {
+                return `<span style='color: #e5c07b;'>Already logged in as root!</span>`;
+            }
+            isRoot = true;
+            updatePrompt();
+            document.querySelector('.terminal-container').style.boxShadow = '0 0 50px rgba(255, 0, 0, 0.5)';
+            return `<pre style='color: #ff0000; margin: 0; font-size: 0.75rem; line-height: 1.2;'>
+██████╗ ██╗   ██╗ ██████╗     ██████╗ ██████╗ ███████╗
+██╔══██╗██║   ██║██╔════╝    ██╔══██╗██╔══██║██╔════╝
+██║  ██║██║   ██║██║         ██║  ██║███████║███████╗
+██║  ██║██║   ██║██║         ██║  ██║██╔══██║╚════██║
+██████╔╝╚██████╔╝╚██████╗    ██████╔╝██║  ██║███████║
+╚═════╝  ╚═════╝  ╚═════╝    ╚═════╝ ╚═╝  ╚═╝╚══════╝</pre>
+<span style='color: #ff0000;'>ROOT ACCESS GRANTED</span>
+<span style='color: #5c6370;'>Welcome to the dark side. 🖤</span>
+<span style='color: #98c379;'>Type 'exit' to return to guest mode.</span>`;
+        }
+        return `<span style='color: #e06c75;'>su: invalid option '${args}'</span>`;
+    },
+
+    exit: () => {
+        if (isRoot) {
+            isRoot = false;
+            updatePrompt();
+            document.querySelector('.terminal-container').style.boxShadow = '';
+            return `<span style='color: #98c379;'>Logging out of root...
+Back to guest mode. 👋</span>`;
+        }
+        return `<span style='color: #e06c75;'>Not logged in as root.</span>`;
+    },
+
+    // Secret root-only command
+    rm: (args) => {
+        if (!isRoot) return `<span style='color: #e06c75;'>rm: Permission denied. Are you root?</span>`;
+        if (args === '-rf /' || args === '-rf /*') {
+            document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#000;color:#ff0000;font-family:monospace;font-size:24px;">💥 SYSTEM DESTROYED 💥<br><span style="font-size:14px;color:#666;">(refresh to recover)</span></div>';
+            return '';
+        }
+        return `<span style='color: #ff0000;'>Nice try! But I'm not letting you delete anything important. 😏</span>`;
+    },
+
+    reboot: () => {
+        if (!isRoot) return `<span style='color: #e06c75;'>reboot: Permission denied. Are you root?</span>`;
+        location.reload();
+        return 'Rebooting...';
+    }
+};
+
+function resolvePath(path) {
+    if (path.startsWith('~/')) return path;
+    if (path.startsWith('/')) return path;
+    if (path === '.') return currentDir;
+    return currentDir === '~' ? `~/${path}` : `${currentDir}/${path}`;
+}
+
+function updatePrompt() {
+    const user = isRoot ? 'root' : 'guest';
+    const color = isRoot ? '#ff0000' : '#98c379';
+    const promptText = `${user}@AI-dude:${currentDir}$`;
+
+    document.querySelectorAll('.prompt').forEach(el => {
+        el.textContent = promptText;
+        el.style.color = color;
+    });
+
+    if (terminalTitle) {
+        terminalTitle.textContent = `${user}@AI-dude: ${currentDir}`;
+    }
+}
+
+function executeCommand(input) {
+    const parts = input.trim().split(' ');
+    const cmd = parts[0].toLowerCase();
+    const args = parts.slice(1).join(' ');
+
+    commandHistory.push(input);
+    historyIndex = commandHistory.length;
+
+    if (commands[cmd]) {
+        const result = commands[cmd](args);
+        if (result === 'CLEAR') {
+            terminalOutput.innerHTML = `<div class="terminal-line" style="color: #98c379;">Terminal cleared. Type 'help' for commands.</div>`;
+            return;
+        }
+        return result;
+    }
+
+    return `<span style="color: #e06c75;">Command not found: ${cmd}</span>\n<span style="color: #5c6370;">Type 'help' for available commands.</span>`;
+}
 
 if (cmdInput) {
     cmdInput.addEventListener('keydown', function (e) {
         if (e.key === 'Enter') {
-            const val = this.value.trim().toLowerCase();
+            const val = this.value.trim();
             if (!val) return;
 
             const promptLine = document.createElement('div');
             promptLine.className = 'terminal-line';
-            promptLine.innerHTML = `<span class="prompt">guest@AI-dude:~$</span> <span style="color: #fff">${this.value}</span>`;
+            promptLine.innerHTML = `<span class="prompt" style="color: ${isRoot ? '#ff0000' : '#98c379'}">${isRoot ? 'root' : 'guest'}@AI-dude:${currentDir}$</span> <span style="color: #fff">${this.value}</span>`;
             terminalOutput.appendChild(promptLine);
 
-            if (val === 'clear') {
-                terminalOutput.innerHTML = `<div class="terminal-line" style="color: #98c379;">Terminal cleared. Type 'help' for commands.</div>`;
-            } else {
+            const result = executeCommand(val);
+            if (result) {
                 const responseLine = document.createElement('div');
                 responseLine.className = 'terminal-line';
-                if (commands[val]) {
-                    responseLine.innerHTML = commands[val];
-                } else {
-                    responseLine.innerHTML = `<span style="color: #e06c75;">Command not found: ${val}</span>
-<span style="color: #5c6370;">Type 'help' for available commands.</span>`;
-                }
+                responseLine.innerHTML = result;
                 terminalOutput.appendChild(responseLine);
             }
 
             this.value = '';
             terminalBody.scrollTop = terminalBody.scrollHeight;
+        }
+
+        // Command history navigation
+        if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            if (historyIndex > 0) {
+                historyIndex--;
+                this.value = commandHistory[historyIndex];
+            }
+        }
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            if (historyIndex < commandHistory.length - 1) {
+                historyIndex++;
+                this.value = commandHistory[historyIndex];
+            } else {
+                historyIndex = commandHistory.length;
+                this.value = '';
+            }
         }
     });
 }
